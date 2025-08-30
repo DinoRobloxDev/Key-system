@@ -3,49 +3,196 @@
 LUARMOUR ON TOP BABYYYYYY
 THIS IS JUST THE KEY SYSTEM 😭
 
--- Simple Key UI
+-- Improved & Luxurious Key UI
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local CoreGui = game:GetService("CoreGui")
+local TweenService = game:GetService("TweenService")
+local UIGradient = Instance.new("UIGradient")
+
+-- UI Elements
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local CloseButton = Instance.new("TextButton")
 local TextBox = Instance.new("TextBox")
 local EnterButton = Instance.new("TextButton")
+local DiscordButton = Instance.new("TextButton")
+local GetKeyButton = Instance.new("TextButton")
+local UICornerFrame = Instance.new("UICorner")
+local UICornerTextBox = Instance.new("UICorner")
 
--- Parent to CoreGui so it shows up
-ScreenGui.Parent = game.CoreGui
+-- Parent to CoreGui
+ScreenGui.Parent = CoreGui
 
 -- Frame
 Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-Frame.Size = UDim2.new(0, 300, 0, 150)
-Frame.Position = UDim2.new(0.5, -150, 0.5, -75)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.Size = UDim2.new(0, 320, 0, 270)
+Frame.Position = UDim2.new(0.5, -160, 0.5, -135)
+Frame.BorderSizePixel = 0
+Frame.BackgroundTransparency = 0.2
+UICornerFrame.Parent = Frame
+UICornerFrame.CornerRadius = UDim.new(0, 10)
+
+-- A luxurious UIGradient for the Frame
+local FrameGradient = Instance.new("UIGradient")
+FrameGradient.Parent = Frame
+FrameGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 40, 40)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 20))
+})
+FrameGradient.Rotation = 90
+
+-- Title (with Gold Flashing Animation)
+Title.Parent = Frame
+Title.Size = UDim2.new(0, 280, 0, 50)
+Title.Position = UDim2.new(0, 20, 0, 10)
+Title.BackgroundTransparency = 1
+Title.Text = "Exodus Scripts"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 24
+Title.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Gold Flashing Gradient for the Title
+local TitleGradient = Instance.new("UIGradient")
+TitleGradient.Parent = Title
+TitleGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 223, 0)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(150, 120, 0)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 223, 0))
+})
+TitleGradient.Offset = Vector2.new(-1, 0)
+TitleGradient.Rotation = 45
+
+-- Title Tween Animation
+local function animateTitle()
+    local tweenInfo = TweenInfo.new(3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
+    local tween = TweenService:Create(TitleGradient, tweenInfo, {Offset = Vector2.new(1, 0)})
+    tween:Play()
+end
+animateTitle()
+
+-- Close Button
+CloseButton.Parent = Frame
+CloseButton.Size = UDim2.new(0, 30, 0, 30)
+CloseButton.Position = UDim2.new(1, -35, 0, 5)
+CloseButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+CloseButton.Text = "X"
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.TextSize = 18
+local UICornerClose = Instance.new("UICorner")
+UICornerClose.Parent = CloseButton
+UICornerClose.CornerRadius = UDim.new(0, 8)
+
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
 
 -- TextBox
 TextBox.Parent = Frame
-TextBox.Size = UDim2.new(0, 200, 0, 40)
-TextBox.Position = UDim2.new(0.5, -100, 0, 20)
+TextBox.Size = UDim2.new(0, 280, 0, 40)
+TextBox.Position = UDim2.new(0.5, -140, 0, 60)
 TextBox.PlaceholderText = "Enter your key"
 TextBox.Text = ""
 TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextBox.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+TextBox.ClearTextOnFocus = false
+UICornerTextBox.Parent = TextBox
+UICornerTextBox.CornerRadius = UDim.new(0, 8)
 
--- Enter Button
+-- Enter Button (with Hover Effect)
 EnterButton.Parent = Frame
-EnterButton.Size = UDim2.new(0, 200, 0, 40)
-EnterButton.Position = UDim2.new(0.5, -100, 0, 80)
+EnterButton.Size = UDim2.new(0, 280, 0, 40)
+EnterButton.Position = UDim2.new(0.5, -140, 0, 110)
 EnterButton.Text = "Enter"
-EnterButton.BackgroundColor3 = Color3.fromRGB(60, 120, 255)
+EnterButton.BackgroundColor3 = Color3.fromRGB(70, 130, 255)
 EnterButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+local UICornerEnter = Instance.new("UICorner")
+UICornerEnter.Parent = EnterButton
+UICornerEnter.CornerRadius = UDim.new(0, 8)
 
--- Script action
+-- Enter Button Hover Effect
+EnterButton.MouseEnter:Connect(function()
+    TweenService:Create(EnterButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(90, 150, 255)}):Play()
+end)
+EnterButton.MouseLeave:Connect(function()
+    TweenService:Create(EnterButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(70, 130, 255)}):Play()
+end)
+
+-- Discord Button (with Hover Effect)
+DiscordButton.Parent = Frame
+DiscordButton.Size = UDim2.new(0, 280, 0, 40)
+DiscordButton.Position = UDim2.new(0.5, -140, 0, 160)
+DiscordButton.Text = "Discord"
+DiscordButton.BackgroundColor3 = Color3.fromRGB(114, 137, 218)
+DiscordButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+local UICornerDiscord = Instance.new("UICorner")
+UICornerDiscord.Parent = DiscordButton
+UICornerDiscord.CornerRadius = UDim.new(0, 8)
+
+-- Discord Button Hover Effect
+DiscordButton.MouseEnter:Connect(function()
+    TweenService:Create(DiscordButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(134, 157, 238)}):Play()
+end)
+DiscordButton.MouseLeave:Connect(function()
+    TweenService:Create(DiscordButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(114, 137, 218)}):Play()
+end)
+
+-- Get Key Button (with Hover Effect)
+GetKeyButton.Parent = Frame
+GetKeyButton.Size = UDim2.new(0, 280, 0, 40)
+GetKeyButton.Position = UDim2.new(0.5, -140, 0, 210)
+GetKeyButton.Text = "Get Key"
+GetKeyButton.BackgroundColor3 = Color3.fromRGB(70, 130, 255)
+GetKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+local UICornerGetKey = Instance.new("UICorner")
+UICornerGetKey.Parent = GetKeyButton
+UICornerGetKey.CornerRadius = UDim.new(0, 8)
+
+-- Get Key Button Hover Effect
+GetKeyButton.MouseEnter:Connect(function()
+    TweenService:Create(GetKeyButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(90, 150, 255)}):Play()
+end)
+GetKeyButton.MouseLeave:Connect(function()
+    TweenService:Create(GetKeyButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(70, 130, 255)}):Play()
+end)
+
+-- Notifications function
+local function notify(message)
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Exodus Scripts";
+        Text = message;
+        Duration = 3;
+    })
+end
+
+-- Discord Button click
+DiscordButton.MouseButton1Click:Connect(function()
+    setclipboard("discord.gg/exodushub")
+    notify("Discord link copied!")
+end)
+
+-- Get Key Button click
+GetKeyButton.MouseButton1Click:Connect(function()
+    setclipboard("https://ads.luarmor.net/get_key?for=Philly2_glitched_character-rtoftdfpIAxK")
+    notify("Key link copied!")
+end)
+
+-- Enter Button click
 EnterButton.MouseButton1Click:Connect(function()
-    -- Get the key from the user and set it to a global variable
-    _G.script_key = TextBox.Text
-    
-    -- Check if the key is not empty
-    if _G.script_key ~= "" then
-        -- Run loader with the key
-        loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/8c69e4b9ba4e1b6b7e7f525b1c69137a.lua"))()
-
-        -- Close UI after entering key
+    local entered_key = TextBox.Text
+    if entered_key ~= "" then
+        local success, err = pcall(function()
+            local loader_code = game:HttpGet("https://api.luarmor.net/files/v4/loaders/8c69e4b9ba4e1b6b7e7f525b1c69137a.lua")
+            local full_script = "script_key = '" .. entered_key .. "';" .. loader_code
+            loadstring(full_script)()
+        end)
+        if not success then
+            notify("Error executing script: " .. tostring(err))
+        end
         ScreenGui:Destroy()
     else
         EnterButton.Text = "Please enter a key!"
