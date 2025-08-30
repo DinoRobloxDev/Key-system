@@ -37,9 +37,12 @@ EnterButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 
 -- Script action
 EnterButton.MouseButton1Click:Connect(function()
-    local script_key = TextBox.Text
-    if script_key ~= "" then
-        -- Run loader with key
+    -- Get the key from the user and set it to a global variable
+    _G.script_key = TextBox.Text
+    
+    -- Check if the key is not empty
+    if _G.script_key ~= "" then
+        -- Run loader with the key
         loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/8c69e4b9ba4e1b6b7e7f525b1c69137a.lua"))()
 
         -- Close UI after entering key
