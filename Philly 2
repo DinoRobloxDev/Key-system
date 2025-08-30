@@ -1,0 +1,52 @@
+
+-- TRYING TO STEAL THIS IS WILDDD
+LUARMOUR ON TOP BABYYYYYY
+THIS IS JUST THE KEY SYSTEM 😭
+
+-- Simple Key UI
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextBox = Instance.new("TextBox")
+local EnterButton = Instance.new("TextButton")
+
+-- Parent to CoreGui so it shows up
+ScreenGui.Parent = game.CoreGui
+
+-- Frame
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+Frame.Size = UDim2.new(0, 300, 0, 150)
+Frame.Position = UDim2.new(0.5, -150, 0.5, -75)
+
+-- TextBox
+TextBox.Parent = Frame
+TextBox.Size = UDim2.new(0, 200, 0, 40)
+TextBox.Position = UDim2.new(0.5, -100, 0, 20)
+TextBox.PlaceholderText = "Enter your key"
+TextBox.Text = ""
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+
+-- Enter Button
+EnterButton.Parent = Frame
+EnterButton.Size = UDim2.new(0, 200, 0, 40)
+EnterButton.Position = UDim2.new(0.5, -100, 0, 80)
+EnterButton.Text = "Enter"
+EnterButton.BackgroundColor3 = Color3.fromRGB(60, 120, 255)
+EnterButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+-- Script action
+EnterButton.MouseButton1Click:Connect(function()
+    local script_key = TextBox.Text
+    if script_key ~= "" then
+        -- Run loader with key
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/8c69e4b9ba4e1b6b7e7f525b1c69137a.lua"))()
+
+        -- Close UI after entering key
+        ScreenGui:Destroy()
+    else
+        EnterButton.Text = "Please enter a key!"
+        task.wait(1.5)
+        EnterButton.Text = "Enter"
+    end
+end)
